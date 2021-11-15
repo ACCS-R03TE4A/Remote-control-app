@@ -1,0 +1,7 @@
+#vertically {
+  display: flex;
+  flex-direction: column;
+}
+#item {
+  margin-bottom: 50px;
+}
