@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useState } from "react";
 import {
-  createMuiTheme,
+  createTheme,
   CssBaseline,
   ThemeOptions,
   ThemeProvider,
@@ -12,7 +12,7 @@ import Settings from "./Settings";
 import { Route, Routes } from "react-router-dom";
 
 export default function App() {
-  const [theme, setTheme] = useState({
+  const theme = createTheme({
     typography: {
       fontFamily: [
         "Kosugi Maru",
@@ -27,13 +27,10 @@ export default function App() {
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"'
       ].join(",")
-    },
-    palette: {
-      type: "dark"
     }
   });
   return (
-    <ThemeProvider theme={createMuiTheme(theme as ThemeOptions)}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
         <Route path="/" element={<Remocon />} />
