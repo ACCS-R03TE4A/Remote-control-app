@@ -7,7 +7,7 @@ import { Box, Button, IconButton, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import config from "./AppConfig";
 
-const sendPostNumber = async (postNumber: string) => {
+export const sendPostNumber = async (postNumber: string) => {
   let retData = "";
   await fetch(
     `${config.protocol}://${config.controlServerHost}/${config.postNumberEndPoint}`
@@ -40,6 +40,7 @@ export default function Settings() {
       <div id="vertically">
         <Box component="form">
           <TextField
+            data-testId="postNumberField"
             variant="outlined"
             placeholder="郵便番号"
             label="郵便番号"

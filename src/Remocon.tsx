@@ -15,7 +15,7 @@ const remItems = [
   ["寒い", "#0009b5"]
 ];
 
-const sendTemperatureSensation = async (temperatureSensation: number) => {
+export const sendTemperatureSensation = async (temperatureSensation: number) => {
   let retData = "";
   await fetch(
     `${config.protocol}://${config.controlServerHost}/${config.tempSenseEndPointURL}`
