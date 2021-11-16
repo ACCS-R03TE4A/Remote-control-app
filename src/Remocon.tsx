@@ -34,7 +34,7 @@ export default function Remocon() {
       appbar={{
         title: "リモコンアプリ",
         rightButton: (
-          <IconButton component={Link} to="Settings">
+          <IconButton component={Link} to="Settings" data-testid="setting_button">
             <SettingsIcon />
           </IconButton>
         )
@@ -49,8 +49,8 @@ export default function Remocon() {
         {remItems.map((e, index) => (
           <Button
             variant="contained"
-            id="item"
-            style={{ backgroundColor: e[1] }}
+            key={e[0]}
+            style={{ backgroundColor: e[1], marginBottom:"50px" }}
             onClick={() => {
               setSnackbarState(true);
               sendTemperatureSensation(index);

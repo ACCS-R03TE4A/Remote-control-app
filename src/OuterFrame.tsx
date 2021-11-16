@@ -18,10 +18,10 @@ interface IProps {
 const OuterFrame = (props: IProps) => {
   return (
     <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" data-testid="appbar">
         <Toolbar>
           {props.appbar.leftButton}
-          <Typography variant="h6" style={{ marginLeft: "10px" }}>
+          <Typography variant="h6" style={{ marginLeft: "10px" }} data-testid="appbartitle">
             {props.appbar.title}
           </Typography>
           <div style={{ marginLeft: "auto", marginRight: "0px" }}>

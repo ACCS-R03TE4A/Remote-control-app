@@ -1,4 +1,3 @@
-import "./Remocon.css";
 import OuterFrame from "./OuterFrame";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -6,6 +5,7 @@ import { useState } from "react";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import config from "./AppConfig";
+import "./Remocon.css";
 
 export const sendPostNumber = async (postNumber: string) => {
   let retData = "";
@@ -26,7 +26,7 @@ export default function Settings() {
       appbar={{
         title: "設定",
         leftButton: (
-          <IconButton component={Link} to="/">
+          <IconButton component={Link} to="/" data-testid="setting_backbutton">
             <ArrowBackIosNewIcon />
           </IconButton>
         )
@@ -37,10 +37,10 @@ export default function Settings() {
         msg: "送信します..."
       }}
     >
-      <div id="vertically">
+      <div className="vertically">
         <Box component="form">
           <TextField
-            data-testId="postNumberField"
+            data-testid="postNumberField"
             variant="outlined"
             placeholder="郵便番号"
             label="郵便番号"
