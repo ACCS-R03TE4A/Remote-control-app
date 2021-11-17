@@ -1,7 +1,7 @@
 const config = {
   protocol: "http",
-  controlServerHost: "dummy.jp",
-  tempSenseEndPointURL: "/temperatureSense",
-  postNumberEndPoint: "/postNumber"
+  controlServerHost: "127.0.0.1:5000",
+  tempSenseEndPointURL: "temperatureSense",
+  postNumberEndPoint: "postNumber"
 };
 export default config;
