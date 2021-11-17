@@ -18,8 +18,10 @@ const remItems = [
 export const sendTemperatureSensation = async (temperatureSensation: number) => {
   let retData = "";
   await fetch(
-    `${config.protocol}://${config.controlServerHost}/${config.tempSenseEndPointURL}`
-  )
+    `${config.protocol}://${config.controlServerHost}/${config.tempSenseEndPointURL}?tSense=${temperatureSensation}`,
+    {
+      mode: 'cors',
+    })
     .then((response) => response.json())
     .then((data) => (data = retData))
     .catch((e) => (retData = e));

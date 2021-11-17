@@ -10,8 +10,10 @@ import "./Remocon.css";
 export const sendPostNumber = async (postNumber: string) => {
   let retData = "";
   await fetch(
-    `${config.protocol}://${config.controlServerHost}/${config.postNumberEndPoint}`
-  )
+    `${config.protocol}://${config.controlServerHost}/${config.postNumberEndPoint}?pNumber=${postNumber}`,
+    {
+      mode: 'cors',
+    })
     .then((response) => response.json())
     .then((data) => (data = retData))
     .catch((e) => (retData = e));
