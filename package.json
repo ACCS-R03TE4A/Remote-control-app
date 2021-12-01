@@ -4,6 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "src/index.tsx",
+  "homepage": "./",
   "dependencies": {
     "@emotion/react": "11.6.0",
     "@emotion/styled": "11.6.0",
