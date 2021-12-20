@@ -5,7 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useState } from "react";
 import { Button, Icon, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import config from "./AppConfig";
+import config from "./AppConfig.json";
 
 const remItems = [
   ["暑い", "#b54200"],

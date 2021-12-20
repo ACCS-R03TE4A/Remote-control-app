@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useState } from "react";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import config from "./AppConfig";
+import config from "./AppConfig.json";
 import "./Remocon.css";
 
 export const sendPostNumber = async (postNumber: string) => {
