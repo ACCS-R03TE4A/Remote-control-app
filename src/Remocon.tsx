@@ -79,7 +79,7 @@ const TemperatureDisplay = () => {
       .then((response) => response.json())
       .then((data) => {
         setAmbient(data.tCurrent.tActual);
-        setTarget(data.tCurrent.tSuitable);
+        setTarget(data.tCurrent.tTarget);
       });
   };
   useEffect(() => {
