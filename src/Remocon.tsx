@@ -70,19 +70,23 @@ export default function Remocon() {
 const TemperatureDisplay = () => {
   const [ambient, setAmbient] = useState("未取得");
   const [target, setTarget] = useState("未取得");
+  const getTemp = () => {
+    fetch(
+      `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
+      {
+        mode: 'cors',
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setAmbient(data.tCurrent.tActual);
+        setTarget(data.tCurrent.tSuitable);
+      });
+  };
   useEffect(() => {
     setInterval(() => {
-      fetch(
-        `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
-        {
-          mode: 'cors',
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          setAmbient(data.tCurrent.tActual);
-          setTarget(data.tCurrent.tSuitable);
-        });
+      getTemp();
     }, 10 * 1000);
+    getTemp();
   }, []);
   return (
     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
