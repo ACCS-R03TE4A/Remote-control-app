@@ -62,7 +62,7 @@ export default function Remocon() {
           </Button>
         ))}
       </div>
-      <TemperatureDisplay/>
+      <TemperatureDisplay />
     </OuterFrame >
   );
 }
@@ -71,19 +71,21 @@ const TemperatureDisplay = () => {
   const [ambient, setAmbient] = useState("未取得");
   const [target, setTarget] = useState("未取得");
   useEffect(() => {
-    fetch(
-      `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
-      {
-        mode: 'cors',
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        setAmbient(data.tCurrent.tActual);
-        setTarget(data.tCurrent.tSuitable);
-      });
+    setInterval(() => {
+      fetch(
+        `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
+        {
+          mode: 'cors',
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          setAmbient(data.tCurrent.tActual);
+          setTarget(data.tCurrent.tSuitable);
+        });
+    }, 10 * 1000);
   }, []);
   return (
-    <div style={{ display: "flex", flexDirection: "row",  justifyContent: "space-around" }}>
+    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
       <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
         <Typography variant="body1">近辺温度</Typography>
         <Typography variant="h6">{`${ambient}℃`}</Typography>
