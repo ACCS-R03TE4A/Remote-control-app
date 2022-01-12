@@ -33,8 +33,8 @@ export default function Remocon() {
   const [ambient, setAmbient] = useState("未取得");
   const [target, setTarget] = useState("未取得");
 
-  const getTemp = () => {
-    fetch(
+  const getTemp = async () => {
+    await fetch(
       `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
       {
         mode: 'cors',
@@ -74,10 +74,10 @@ export default function Remocon() {
             variant="contained"
             key={e[0]}
             style={{ backgroundColor: e[1], marginBottom: "50px" }}
-            onClick={() => {
+            onClick={async () => {
               setSnackbarState(true);
-              sendTemperatureSensation(index);
-              getTemp();
+              await sendTemperatureSensation(index);
+              await getTemp();
             }}
           >
             {e[0]}
