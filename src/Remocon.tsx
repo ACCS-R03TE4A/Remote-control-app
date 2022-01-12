@@ -30,6 +30,27 @@ export const sendTemperatureSensation = async (temperatureSensation: number) => 
 
 export default function Remocon() {
   const [snackbarState, setSnackbarState] = useState(false);
+  const [ambient, setAmbient] = useState("未取得");
+  const [target, setTarget] = useState("未取得");
+
+  const getTemp = () => {
+    fetch(
+      `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
+      {
+        mode: 'cors',
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setAmbient(data.tCurrent.tActual);
+        setTarget(data.tCurrent.tTarget);
+      });
+  };
+  useEffect(() => {
+    setInterval(() => {
+      getTemp();
+    }, 10 * 1000);
+    getTemp();
+  }, []);
 
   return (
     <OuterFrame
@@ -56,47 +77,28 @@ export default function Remocon() {
             onClick={() => {
               setSnackbarState(true);
               sendTemperatureSensation(index);
+              getTemp();
             }}
           >
             {e[0]}
           </Button>
         ))}
       </div>
-      <TemperatureDisplay />
+      <TemperatureDisplay ambient={ambient} target={target} />
     </OuterFrame >
   );
 }
 
-const TemperatureDisplay = () => {
-  const [ambient, setAmbient] = useState("未取得");
-  const [target, setTarget] = useState("未取得");
-  const getTemp = () => {
-    fetch(
-      `${config.protocol}://${config.controlServerHost}/${config.getTempEndPoint}`,
-      {
-        mode: 'cors',
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        setAmbient(data.tCurrent.tActual);
-        setTarget(data.tCurrent.tTarget);
-      });
-  };
-  useEffect(() => {
-    setInterval(() => {
-      getTemp();
-    }, 10 * 1000);
-    getTemp();
-  }, []);
+const TemperatureDisplay = (props: {ambient:string, target:string}) => {
   return (
     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
       <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
         <Typography variant="body1">近辺温度</Typography>
-        <Typography variant="h6">{`${ambient}℃`}</Typography>
+        <Typography variant="h6">{`${props.ambient}℃`}</Typography>
       </div>
       <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
         <Typography variant="body1" >目標温度</Typography>
-        <Typography variant="h6">{`${target}℃`}</Typography>
+        <Typography variant="h6">{`${props.target}℃`}</Typography>
       </div>
     </div>
   );
