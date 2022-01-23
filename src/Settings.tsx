@@ -1,7 +1,7 @@
 import OuterFrame from "./OuterFrame";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import config from "./AppConfig.json";
@@ -20,9 +20,24 @@ export const sendPostNumber = async (postNumber: string) => {
   return `${retData}`;
 };
 
+export const getPostNumber = async (callback : React.Dispatch<React.SetStateAction<string>>) => {
+  let postNumber = "";
+  await fetch(
+    `${config.protocol}://${config.controlServerHost}/${config.postNumberEndPoint}`,
+    {
+      mode: 'cors',
+    })
+    .then((response) => response.json())
+    .then((data) => (callback(data.postNumber)))
+    .catch((e) => (postNumber = e));
+}
+
 export default function Settings() {
   const [snackbarState, setSnackbarState] = useState(false);
   const [postNumber, setPostNumber] = useState("");
+  useEffect(() => {
+    getPostNumber(setPostNumber); // サーバーから取得してpostNumberの状態を変更する。
+  },[]);
   return (
     <OuterFrame
       appbar={{
@@ -47,6 +62,7 @@ export default function Settings() {
             placeholder="郵便番号"
             label="郵便番号"
             style={{ width: "100%" }}
+            value={postNumber}
             onChange={(event) => {
               setPostNumber(event.target.value);
               sendPostNumber(event.target.value);
