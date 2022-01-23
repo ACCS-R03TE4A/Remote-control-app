@@ -1,6 +1,6 @@
 {
   "protocol": "http",
-  "controlServerHost": "192.168.59.128:5000",
+  "controlServerHost": "localhost:5000",
   "tempSenseEndPointURL": "temperatureSense",
   "postNumberEndPoint": "postNumber",
   "getTempEndPoint" : "temperatureCurrent"
